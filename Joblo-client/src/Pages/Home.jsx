@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Banner from '../Components/Banner'
 import Card from '../Components/Card';
 import Jobs from './Jobs';
+import Sidebar from '../sidebar/Sidebar';
 
 const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -45,13 +46,13 @@ const Home = () => {
 
     //filter by radio button
     if(selected) {
-      filteredJobs= filteredJobs.filter(({jobLocation,maxPrice,experienceLevel,salaryType,employmentType,postingDate})=>{
-        jobLocation.toLowerCase() == selected.toLowerCase() ||
-        parseInt(maxPrice) == parseInt(selected) ||
-        experienceLevel.toLowerCase() == selected.toLowerCase() ||
-        salaryType.toLowerCase() == selected.toLowerCase() ||
-        employmentType.toLowerCase() == selected.toLowerCase() 
-      });
+      filteredJobs= filteredJobs.filter(({jobLocation,maxPrice,experienceLevel,salaryType,employmentType})=>(
+        jobLocation.toLowerCase() === selected.toLowerCase() ||
+        parseInt(maxPrice) === parseInt(selected) ||
+        experienceLevel.toLowerCase() === selected.toLowerCase() ||
+        salaryType.toLowerCase() === selected.toLowerCase() ||
+        employmentType.toLowerCase() === selected.toLowerCase() 
+      ));
       console.log(filteredJobs);
     }
     return filteredJobs.map((data,i)=><Card key={i} data ={data}/>)
@@ -61,7 +62,9 @@ const Home = () => {
     <div >
       <Banner query={query} handleInputChange={handleInputChange} />
       <div className='bg-[#FAFAFA] md:grid grid-cols-4 gap-8 lg:px-24 px-4 py-12'>
-        <div className='bg-white p-4 rounded'>Left</div>
+        <div className='bg-white p-4 rounded'>
+          <Sidebar handleChange={handleChange} handleClick={handleClick}/>
+        </div>
       <div className='col-span-2 bg-white p-4 rounded-sm'><Jobs resuilt={result}/></div>
       <div className='bg-white p-4 rounded'>Right</div>
       </div>

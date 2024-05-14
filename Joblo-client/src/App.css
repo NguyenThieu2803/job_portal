@@ -81,12 +81,12 @@ li {
   display: block;
   position: relative;
   padding-left: 35px;
-  margin-bottom: 12px;
   cursor: pointer;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  margin-top: 15px;
 }
 
 .sidebar-label-container input {
