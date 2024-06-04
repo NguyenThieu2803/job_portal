@@ -12,6 +12,7 @@ const Home = () => {
   const itemPerPage=6;
 
 
+
   useEffect(() => {
     setisLoading(true);
     fetch("jobs.json")
@@ -39,7 +40,7 @@ const Home = () => {
 
   //----button based filtering
   const handleClick = (event) => {
-    selectedCategory(event.target.value);
+    setSelectedCategory(event.target.value);
   }
 
 // caculate the index range
