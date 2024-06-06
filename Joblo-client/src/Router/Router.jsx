@@ -4,6 +4,7 @@ import {
 import App from "../App";
 import Home from "../Pages/Home";
 import About from "../Pages/About";
+import CreateJobs from "../Pages/CreateJobs";
 
 const router = createBrowserRouter([
     {
@@ -12,6 +13,7 @@ const router = createBrowserRouter([
       children:[
         {path:"/", element: <Home/>},                                           
         {path:"/about", element: <About/>},
+        {path:"/post-job", element: <CreateJobs/>}
       ],
     },
   ]);
