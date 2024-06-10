@@ -16,13 +16,13 @@ const Home = () => {
 
   useEffect(() => {
     setisLoading(true);
-    fetch("jobs.json")
-      .then(res => res.json()).then(data => {
-        setJobs(data)
+    fetch("http://localhost:3000/api/v1/jobs-get")
+      .then((res) => res.json()).then((data) => {
+        setJobs(data.result)
         setisLoading(false);
       })
   }, [])
-
+console.log("Day LA job:",jobs)
   const [query, setQuery] = useState("");
 
   // search for
