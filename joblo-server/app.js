@@ -1,5 +1,8 @@
 const express = require('express');
 const cors = require('cors');
+const routers = require('./src/router/web');
+const bodyParser = require('body-parser');
+const { ObjectId } = require('mongodb');
 const { MongoClient, ServerApiVersion } = require('mongodb');
 require('dotenv').config();
 
@@ -9,6 +12,9 @@ const port = process.env.PORT || 3000;
 // Middleware
 app.use(express.json());
 app.use(cors());
+app.use(routers);
+app.use(bodyParser.json());
+
 
 const uri = "mongodb+srv://thieu:2003@cluster0.pjyvmvs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
@@ -69,7 +75,37 @@ async function run() {
         });
       }
     });
+   // get jobs by email address
+    app.get('/api/v1/myjobs/:email', async (req, res) => {
+      try {
+        const result = await JobCollection.find({postedBy: req.params.email}).toArray();
+        res.status(200).json({
+          result,
+        });
+      } catch (error) {
+        res.status(500).json({
+          message: "Internal Server Error",
+          error,
+        });
+      }
+    });
 
+    // delete jobs method 
+    app.delete('/api/v1/jobs-delete/:id', async (req, res) => {
+      try {
+        const id= req.params.id;
+        console.log(id)
+        const filter = {_id:new ObjectId(id)}
+        console.log(filter)
+        const result = await JobCollection.deleteOne(filter);
+        res.send(result);
+      } catch (error) {
+        res.status(500).json({
+          message: "Internal Server Error",
+          error,
+        });
+      }
+    });
     // Ping MongoDB to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
