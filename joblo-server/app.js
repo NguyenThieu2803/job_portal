@@ -42,7 +42,7 @@ async function run() {
       try {
         const body = req.body;
         const result = await JobCollection.insertOne(body);
-        body.CreateAt= new Date()
+        body.CreateAt = new Date()
         if (result.insertedId) {
           res.status(201).json({
             message: "Job Posted Successfully",
@@ -75,10 +75,10 @@ async function run() {
         });
       }
     });
-   // get jobs by email address
+    // get jobs by email address
     app.get('/api/v1/myjobs/:email', async (req, res) => {
       try {
-        const result = await JobCollection.find({postedBy: req.params.email}).toArray();
+        const result = await JobCollection.find({ postedBy: req.params.email }).toArray();
         res.status(200).json({
           result,
         });
@@ -93,9 +93,9 @@ async function run() {
     // delete jobs method 
     app.delete('/api/v1/jobs-delete/:id', async (req, res) => {
       try {
-        const id= req.params.id;
+        const id = req.params.id;
         console.log(id)
-        const filter = {_id:new ObjectId(id)}
+        const filter = { _id: new ObjectId(id) }
         console.log(filter)
         const result = await JobCollection.deleteOne(filter);
         res.send(result);
@@ -106,6 +106,37 @@ async function run() {
         });
       }
     });
+
+    // find jobs by id
+    app.get('/api/v1/jobs-get/:id', async (req, res) => {
+      try {
+        const filter = { _id: new ObjectId(req.params.id) }
+        const result = await JobCollection.find(filter).toArray();
+        res.status(200).json({
+          result,
+        });
+      } catch (error) {
+        res.status(500).json({
+          message: "Internal Server Error",
+          error,
+        });
+      }
+    })
+
+
+    //Update the job
+    app.patch('/api/v1/update-jobs/:id',async(req, res) => {
+      const jobdata = req.body
+      const filter = { _id: new ObjectId(req.params.id) }
+      const option = {upsert: true}
+      updateDoc = {
+        $set: jobdata
+      }
+      const resuilt = await JobCollection.updateOne(filter,updateDoc,option)
+      res.status(200).json({
+        result: resuilt
+      })
+    })
     // Ping MongoDB to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");

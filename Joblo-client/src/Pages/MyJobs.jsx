@@ -33,7 +33,7 @@ const handleDelete = (id) => {
         console.log(data)
         if(data.deletedCount >= 0) {
             alert("Delete success!")
-            setJob(jobs.filter(job => job._id !== id));
+            setFilteredJobs(jobs.filter(job => job._id!== id));
         }
        })
 
