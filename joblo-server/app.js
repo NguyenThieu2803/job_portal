@@ -4,8 +4,9 @@ const routers = require('./src/router/web');
 const bodyParser = require('body-parser');
 const { ObjectId } = require('mongodb');
 const { MongoClient, ServerApiVersion } = require('mongodb');
+const cookieParser = require('cookie-parser');
 require('dotenv').config();
-
+const authRouter = require('./src/router/authRouter')
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -14,9 +15,9 @@ app.use(express.json());
 app.use(cors());
 app.use(routers);
 app.use(bodyParser.json());
+app.use("/v1/auth/",authRouter);
 
-
-const uri = "mongodb+srv://thieu:2003@cluster0.pjyvmvs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const uri = process.env.DB_URI
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
@@ -27,6 +28,8 @@ const client = new MongoClient(uri, {
   }
 });
 
+
+//AUTHENTICATION 
 async function run() {
   try {
     // Connect the client to the server
