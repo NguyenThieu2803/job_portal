@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Password is required'],
         minlength: 8,
-        select: false
+        select: true
     },
     admin: {
         type: Boolean,
