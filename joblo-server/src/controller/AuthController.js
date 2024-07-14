@@ -9,16 +9,17 @@ const authController = {
             // Hash password
             const salt = await bcrypt.genSalt(10);
             const hashed = await bcrypt.hash(req.body.password, salt);
-            const {User} = await connectDB();
+            // const {User} = await connectDB();
             // Create User
-            const newUser = new User({
+            const newUser = {
                 username: req.body.username,
                 email: req.body.email,
                 password: hashed
-            });
+         
+            }
 
             // Save user to the database
-            await User.insertOne(newUser);
+            await User.create(newUser)
             res.status(201).json({ message: 'User registered successfully!' });
         } catch (error) {
             console.log(error);
