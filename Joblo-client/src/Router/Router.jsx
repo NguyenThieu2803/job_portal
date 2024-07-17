@@ -10,6 +10,7 @@ import SalaryPage from "../Pages/SalaryPage";
 import UpdateJob from "../Pages/UpdateJob";
 import Login from "../Pages/Login";
 import JobsDetail from "../Pages/JobsDetail";
+import SignUp from "../Pages/SignUp";
 
 const router = createBrowserRouter([
   {
@@ -29,13 +30,16 @@ const router = createBrowserRouter([
       {
         path: "/job-detail/:id",
         element: <JobsDetail />,
-      }
-      
+      },
     ],
   },
   {
     path: "/login",
     element: <Login/>,
+  },
+  {
+    path:"/signup",
+    element:<SignUp/>,
   }
 ]);
   export default router;

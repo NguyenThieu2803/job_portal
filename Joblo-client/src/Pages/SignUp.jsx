@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { FaEnvelope, FaEnvelopeOpenText, FaFacebook, FaGit, FaGithub, FaGoogle, FaRocket } from 'react-icons/fa6'
+import { FaBackward, FaEnvelope, FaEnvelopeOpenText, FaFacebook, FaGit, FaGithub, FaGoogle, FaRocket } from 'react-icons/fa6'
 import { getAuth, createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
 import app from '../firebase/Firebase_Config';
 import { Link, NavLink } from 'react-router-dom';
-const Login = () => {
+const SignUp = () => {
     const provider = new GoogleAuthProvider();
     const auth = getAuth();
     const [email, setEmail] = useState('')
@@ -52,13 +52,32 @@ const Login = () => {
     return (
       <main>        
       <section className='flex items-center justify-center min-h-screen text-center'>
-    <div className=' border-spacing-2 rounded-3xl w-96 h-auto text-center items-center justify-center pt-6 shadow-2xl  '>
-      <h1 className='text-blue font-bold text-5xl mb-5'>LOGIN</h1>
+    <div className=' border-spacing-2 rounded-3xl w-1/4 h-1/2 text-center items-center justify-center pt-6 shadow-2xl  '>
+      <h1 className='text-blue font-bold text-5xl mb-5'>Sign up  </h1>
       <form className='mt-3'>
-      
-        <div className=''>
+
+
+      <div className=''>
           <label htmlFor="email-address" className='pr-2'>
-            Email address:
+           Username :
+          </label>
+          <input
+            type="email"
+            label="Email address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}  
+            required                                    
+            placeholder="Name or nic"    
+            className='py-2 rounded-lg border-2 mt-5'                            
+          />
+        </div>
+
+
+
+
+      <div className=''>
+          <label htmlFor="email-address" className='pr-2'>
+            Email address :
           </label>
           <input
             type="email"
@@ -71,9 +90,27 @@ const Login = () => {
           />
         </div>
 
+
         <div className='mb-4'>
           <label htmlFor="password" className='pr-2'>
-            Password:
+            Password :
+          </label>
+          <input
+            type="password"
+            label="Create password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)} 
+            required                                 
+            placeholder="Password"
+            className='py-2 rounded-lg border-2 mt-5'              
+          />
+        </div>  
+
+
+
+        <div className='mb-4'>
+          <label htmlFor="password" className='pr-2'>
+            Confirm Password :
           </label>
           <input
             type="password"
@@ -96,11 +133,13 @@ const Login = () => {
       </form>
      
       <p className='mt-1'>
-        Already haven't an account?{' '}
-        <NavLink to="/signup" className='text-blue-500 underline'>
-          Sign up
+        Already have an account?{' '}
+        <NavLink to="/login" className='text-blue-500 underline'>
+          Sign in
         </NavLink>
       </p>
+
+      {/* login by other way */}
       <div className='m-3 '>
         <button onClick={HandleLogin} className='mt-4 bg-white border-2 text-blue-500 rounded-lg '>
         <FaGoogle className='w-6 h-5 m-2'/>
@@ -119,5 +158,4 @@ const Login = () => {
   </main>
     )
 }
-
-export default Login
+export default SignUp

@@ -41,7 +41,7 @@ const Navbar = () => {
         {/* login and sign button-------------> */}
         <div className='text-base text-primary font-medium space-x-5 hidden lg:block'>
           <Link to="/login" className='py-2 px-5 border rounded'>Log In</Link>
-          <Link to="/sign-up" className='py-2 px-5 border rounded bg-blue text-white'>Sign Up</Link>
+          <Link to="/signup" className='py-2 px-5 border rounded bg-blue text-white'>Sign Up</Link>
         </div>
 
         {/* mobie menu */}

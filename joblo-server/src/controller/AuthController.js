@@ -53,7 +53,7 @@ const authController = {
         try {
 
             const user = await User.findOne({ username: req.body.username });
-            if (!user) return res.status(400).json({ message: 'User not found' });
+            if (!user) return res.status(404).json({ message: 'User not found' });
 
             // console.log(req.body.username)
             // console.log(req.body.password)
