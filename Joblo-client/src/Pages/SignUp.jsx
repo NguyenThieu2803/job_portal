@@ -126,7 +126,7 @@ const SignUp = () => {
         <button
           type="submit" 
           onClick={onSubmit}                        
-          className='py-2 px-4 bg-blue-500 text-white rounded-lg'
+          className='py-2 px-4 bg-blue text-white rounded-lg mb-3'
         >  
           Sign up                                
         </button>

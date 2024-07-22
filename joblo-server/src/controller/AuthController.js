@@ -31,7 +31,7 @@ const authController = {
     },
 
     //GENERATE ACCESS TOKEN 
-    generateAcessToken: (user) => {
+    generateAcessToken: (user) => { 
         return jwt.sign({
             id: user._id,
             admin: user.admin
@@ -60,7 +60,7 @@ const authController = {
             // console.log(user)
             // Compare password
             const comparePassword = await bcrypt.compare(req.body.password, user.password);
-            if (!comparePassword) return res.status(400).json({ message: 'Wrong password' });
+            if (!comparePassword) return res.status(404).json({ message: 'Wrong password' });
             else if (user && comparePassword) {
 
 
@@ -86,7 +86,6 @@ const authController = {
     },
 
     //get fresh token from cookie
-
     getFreshToken: async (req, res) => {
         try {
             const refreshToken = req.cookies.freshtoken;

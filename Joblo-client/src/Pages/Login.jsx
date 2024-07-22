@@ -7,29 +7,34 @@ import { Link, NavLink } from 'react-router-dom';
 const Login = () => {
     const provider = new GoogleAuthProvider();
     const auth = getAuth();
-    const [email, setEmail] = useState('')
+    // const [email, setEmail] = useState('')
+    const [username,setUsername] = useState('')
     const [password, setPassword] = useState('');
-    const onSubmit = async (e) => {
+    const HandleLogin = async (e) => {
       e.preventDefault()
+      const User = {
+        username: username,
+        password: password
+      }
      
-      await createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            // Signed in
-            const user = userCredential.user;
-            console.log(user);
-            navigate("/login")
-            // ...
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(errorCode, errorMessage);
-            // ..
-        });
+      // await createUserWithEmailAndPassword(auth, email, password)
+      //   .then((userCredential) => {
+      //       // Signed in
+      //       const user = userCredential.user;
+      //       console.log(user);
+      //       navigate("/login")
+      //       // ...
+      //   })
+      //   .catch((error) => {
+      //       const errorCode = error.code;
+      //       const errorMessage = error.message;
+      //       console.log(errorCode, errorMessage);
+      //       // ..
+      //   });
  
    
     }
-    const HandleLogin =() => {
+    const HandleLoginFireBase =() => {
         signInWithPopup(auth, provider)
         .then((result) => {
           // This gives you a Google Access Token. You can use it to access the Google API.
@@ -58,13 +63,13 @@ const Login = () => {
       
         <div className=''>
           <label htmlFor="email-address" className='pr-2'>
-            Email address:
+            Email address or username:
           </label>
           <input
             type="email"
             label="Email address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}  
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}  
             required                                    
             placeholder="Email address"    
             className='py-2 rounded-lg border-2 mt-5'                            
@@ -88,8 +93,8 @@ const Login = () => {
         
         <button
           type="submit" 
-          onClick={onSubmit}                        
-          className='py-2 px-4 bg-blue-500 text-white rounded-lg'
+          onClick={HandleLogin}                        
+          className='py-2 px-4 bg-blue text-white rounded-lg mb-3'
         >  
           Sign up                                
         </button>
@@ -102,13 +107,13 @@ const Login = () => {
         </NavLink>
       </p>
       <div className='m-3 '>
-        <button onClick={HandleLogin} className='mt-4 bg-white border-2 text-blue-500 rounded-lg '>
+        <button onClick={HandleLoginFireBase} className='mt-4 bg-white border-2 text-blue-500 rounded-lg '>
         <FaGoogle className='w-6 h-5 m-2'/>
       </button>
-      <button onClick={HandleLogin} className='mt-4 bg-white border-2 text-blue-500 rounded-lg'>
+      <button onClick={HandleLoginFireBase} className='mt-4 bg-white border-2 text-blue-500 rounded-lg'>
         <FaGithub  className='w-6 h-5 m-2'/>
       </button>
-      <button onClick={HandleLogin} className='mt-4 bg-white border-2 text-blue-500 rounded-lg'>
+      <button onClick={HandleLoginFireBase} className='mt-4 bg-white border-2 text-blue-500 rounded-lg'>
         <FaFacebook  className='w-6 h-5 m-2'/>
       </button>
       </div>

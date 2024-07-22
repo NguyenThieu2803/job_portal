@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { FaBarsStaggered, FaXmark } from 'react-icons/fa6'
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [user,setUser] = useState();
+  // setUser("thieu")
   const handleMenuToggler = () => {
     setIsMenuOpen(!isMenuOpen)
   }
@@ -40,8 +42,21 @@ const Navbar = () => {
 
         {/* login and sign button-------------> */}
         <div className='text-base text-primary font-medium space-x-5 hidden lg:block'>
-          <Link to="/login" className='py-2 px-5 border rounded'>Log In</Link>
+        {/* show avatar and name when login */}
+        {user ? ( <>
+          <div className="flex gap-2 items-center text-white">
+            <span className='font-medium text-blue'>Hi {user}</span>
+            {/* <img src={user.avatar} alt="avatar" className="rounded-full h-8 w-8" /> */}
+            <button className='py-2 px-5 border rounded bg-blue text-white ml-4' onClick={() => setUser(null)}>Logout</button>
+          </div>
+        </>
+          
+        ) : ( <>
+           <Link to="/login" className='py-2 px-5 border rounded'>Log In</Link>
           <Link to="/signup" className='py-2 px-5 border rounded bg-blue text-white'>Sign Up</Link>
+        </>
+        )
+        }
         </div>
 
         {/* mobie menu */}
